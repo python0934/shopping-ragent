@@ -48,3 +48,26 @@ resources/docker/graphrag/.env
 .output/
 docs/temp
 .claude/
+.qoder/
+
+### Python (ragent-py) ###
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+.eggs/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+coverage.xml
+
+### Env secrets (keep examples & tracked frontend config) ###
+.env
+.env.*
+!.env.example
+!frontend/.env

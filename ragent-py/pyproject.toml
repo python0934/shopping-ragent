@@ -1,0 +1,64 @@
+[project]
+name = "ragent-py"
+version = "1.0.0"
+description = "Ragent AI Platform - Python Refactoring"
+requires-python = ">=3.11"
+dependencies = [
+    # Web framework
+    "fastapi>=0.115.0",
+    "uvicorn[standard]>=0.32.0",
+    "python-multipart>=0.0.12",
+    # Database
+    "sqlalchemy[asyncio]>=2.0.36",
+    "asyncpg>=0.30.0",
+    "alembic>=1.14.0",
+    "pgvector>=0.3.6",
+    # Redis
+    "redis[hiredis]>=5.2.0",
+    # HTTP client
+    "httpx>=0.28.0",
+    # MCP client (streamable HTTP)
+    "mcp>=1.2.0",
+    # Serialization
+    "pydantic>=2.10.0",
+    "pydantic-settings>=2.7.0",
+    "orjson>=3.10.0",
+    # Logging
+    "structlog>=24.4.0",
+    # Testing
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "aiosqlite>=0.20.0",  # 单测与集成测试的内存库引擎
+    "httpx",  # for TestClient
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.3.0",
+    "pytest-asyncio>=0.24.0",
+    "pytest-cov>=6.0.0",
+    "aiosqlite>=0.20.0",
+    "ruff>=0.8.0",
+]
+
+[build-system]
+requires = ["setuptools>=75.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 120
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.lint.per-file-ignores]
+# conftest 靠「导入即注册」复用夹具，形参与导入的夹具同名是 pytest 的固有写法
+"tests/**/conftest.py" = ["F811"]
